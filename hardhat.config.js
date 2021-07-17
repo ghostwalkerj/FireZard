@@ -4,6 +4,14 @@ require("hardhat-deploy-ethers");
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-etherscan");
 require('@openzeppelin/hardhat-upgrades');
+require('dotenv').config();
+
+
+const API_KEY = process.env.ETHERSCAN_API_KEY;
+const PRIVATE_KEY_1 = process.env.PRIVATE_KEY_1;
+const PRIVATE_KEY_2 = process.env.PRIVATE_KEY_2;
+const MAINNET_KEY = process.env.MAINNET_KEY;
+
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -32,11 +40,11 @@ module.exports = {
       accounts: [
         {
           balance: "10000000000000000000000",
-          privateKey: "0xe87d780e4c31c953a68aef2763df56599c9cfe73df4740fc24c2d0f5acd21bae"
+          privateKey: PRIVATE_KEY_1
         },
         {
           balance: "10000000000000000000000",
-          privateKey: "0x7f8ecae56a570cb3746d0ff03ad020a06cc30c6c223515e6c1e5c9e95c3b1672"
+          privateKey: PRIVATE_KEY_2
         }
       ],
     },
@@ -45,14 +53,14 @@ module.exports = {
       chainId: 97,
       gasPrice: 20000000000,
       gas: 2100000,
-      accounts: ["e87d780e4c31c953a68aef2763df56599c9cfe73df4740fc24c2d0f5acd21bae"]
+      accounts: [PRIVATE_KEY_1]
     },
     mainnet: {
       url: "https://bsc-dataseed.binance.org/",
       chainId: 56,
       gasPrice: 20000000000,
       gas: 2100000,
-      accounts: ["eda3b56f8d985305b70ff10f06f8b50a24c02404e5f461fefc611611a53fe5f9"]
+      accounts: [MAINNET_KEY]
     }
   },
   solidity: {
@@ -76,5 +84,11 @@ module.exports = {
         },
       },
     ],
+  },
+
+   etherscan: {
+    // Your API key for Etherscan
+    // Obtain one at https://bscscan.com/
+    apiKey: API_KEY
   },
 };
